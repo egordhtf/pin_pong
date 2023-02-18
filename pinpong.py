@@ -122,7 +122,7 @@ def move_ball():
     # определяем координаты сторон мяча и его центра
     ball_left, ball_top, ball_right, ball_bot = c.coords(BALL)
     ball_center = (ball_top + ball_bot) / 2
- 
+  
     # вертикальный отскок
     # Если мы далеко от вертикальных линий - просто двигаем мяч
     if ball_right + BALL_X_SPEED < right_line_distance and \
