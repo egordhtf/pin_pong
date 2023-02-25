@@ -34,22 +34,33 @@ class Player(GameSprite):
     
 roketka_1 = Player('racket.png', win_width - 57, win_height -50, 10)
 roketka_2 = Player('racket.png', win_width - 710, win_height -50, 10)
-
+ball = GameSprite('tenis_ball.png', win_width - 700, win_height - 500, 5)
 clock = time.Clock()
 FPS = 60
 finish = False
 game = True
+
+speed_x = 3
+speed_y = 3
+
 while game:
     for e in event.get():
         if e.type == QUIT:
             game = False
-    if not finish:
+    if finish != True:
+        ball.rect.x += speed_x
+        ball.rect.y += speed_y        
         window.fill(back)
         roketka_1.update_r()
         roketka_1.reset()
         roketka_2.update_l()
         roketka_2.reset()
+        ball.reset()
+
+        if ball.rect.y > win_height - 50 or ball.rect.y < 0:
+            speed_y *= -1
+        if sprite.collide_rect(roketka_1, ball) or sprite.collide_rect(roketka_2, ball):
+            speed_x *= -1 
 
     display.update()
     clock.tick(FPS)
-    
