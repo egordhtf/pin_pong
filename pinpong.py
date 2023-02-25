@@ -1,11 +1,13 @@
 from pygame import *
-
+font.init()
 
 back = (200, 255, 255)
 win_width = 700
 win_height = 500
 window = display.set_mode((win_width, win_height))
-
+font1 = font.Font(None, 35)
+lose1 = font1.render('ARTEM_1 LOSER!', True, (180, 0, 0))
+lose2 = font1.render('ARTEM_2 LOSER!', True, (180, 0, 0))
 
 class GameSprite(sprite.Sprite):
     def __init__(self, player_image, player_x, player_y, player_speed):
@@ -60,7 +62,18 @@ while game:
         if ball.rect.y > win_height - 50 or ball.rect.y < 0:
             speed_y *= -1
         if sprite.collide_rect(roketka_1, ball) or sprite.collide_rect(roketka_2, ball):
-            speed_x *= -1 
+            speed_x *= -1
+
+        if ball.rect.x < 0:
+            finish = True
+            window.blit(lose1, (200, 200))    
+
+        if ball.rect.x > win_width - 50:
+            finish = True
+            window.blit(lose2, (200, 200))  
+
+
+
 
     display.update()
     clock.tick(FPS)
